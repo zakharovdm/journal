@@ -1,9 +1,14 @@
+import Button from './components/Button/Button';
 import './App.css';
 
 function App() {
 
 	return (
-		<div>Project</div>
+		<>
+			<h1>Заголовок</h1>
+			<p>Текст</p>
+			<Button/>
+		</>
 	);
 }
 
