@@ -1,0 +1,15 @@
+.card-button {
+  border-radius: 3px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s;
+  text-align: start;
+  display: block;
+}
+
+.card-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
