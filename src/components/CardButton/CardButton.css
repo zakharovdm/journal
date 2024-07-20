@@ -8,6 +8,7 @@
   transition: background 0.25s;
   text-align: start;
   display: block;
+  width: 100%;
 }
 
 .card-button:hover {
