@@ -4,6 +4,7 @@ import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import JournalList from './components/JournalList/JournalList';
 import JournalItem from './components/JournalItem/JournalItem';
+import JournalForm from './components/JournalForm/JournalForm';
 import CardButton from './components/CardButton/CardButton';
 import './App.css';
 
@@ -43,7 +44,9 @@ function App() {
 					</CardButton>
 				</JournalList>
 			</LeftPanel>
-			<Body>Body</Body>
+			<Body>
+				<JournalForm />
+			</Body>
 		</div>
 	);
 }
