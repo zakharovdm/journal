@@ -4,7 +4,82 @@
   gap: 30px;
 }
 
+.input {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  width: 100%;
+}
+
+.date {
+  position: relative;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+  padding-bottom: 15px;
+  padding-left: 146px
+}
+
+.date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 5px;
+  background: url('/calendar.svg');
+  opacity: 1;
+}
+
+.tag {
+  position: relative;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 15px;
+  padding-left: 146px
+}
+
+.text {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.labelDate {
+  position: absolute;
+  left: 547px;
+  top: 166px;
+}
+
+.labelTag {
+  position: absolute;
+  top: 225px;
+  left: 547px;
+}
+
+.labelTag::before {
+  content: "";
+  position: absolute;
+  left: -53px;
+  width: 18px;
+  height: 18px;
+  background: url("/folder.svg") no-repeat center;
+}
+
 .invalid {
   border: 1px solid red;
   background: rgb(116, 58, 58);
+}
+
+.innerButton {
+  display: flex;
+  justify-content: flex-start;
 }

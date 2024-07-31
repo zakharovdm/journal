@@ -47,11 +47,17 @@ function JournalForm({ onSubmit }) {
 
 	return (
 		<form className={styles['journal-form']} onSubmit={addJournalItem}>
-			<input type="text" name="title" className={cn(styles.input, {[styles.invalid]: !formValidState.title})} />
-			<input type="date" name="date" className={cn(styles.input, {[styles.invalid]: !formValidState.date})} />
-			<input type="text" name="tag" />
-			<textarea name="text" cols="30" rows="10" className={cn(styles.input, {[styles.invalid]: !formValidState.text})}></textarea>
-			<Button text="Сохранить" />
+			<div>
+				<input type="text" name="title" className={cn(styles.input, styles.title, {[styles.invalid]: !formValidState.title})} />
+			</div>
+			<label className={cn(styles.label, styles.labelDate)} htmlFor='date'>Дата</label>
+			<input type="date" name="date" id="date" className={cn(styles.input, styles.date, {[styles.invalid]: !formValidState.date})} />
+			<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">Метки</label>
+			<input type="text" name="tag" id="tag" className={cn(styles.input, styles.tag)} />
+			<textarea name="text" cols="30" rows="10" className={cn(styles.input, styles.text, {[styles.invalid]: !formValidState.text})}></textarea>
+			<div className={styles.innerButton}>
+				<Button text="Сохранить" />
+			</div>
 		</form>
 	);
 }
