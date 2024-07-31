@@ -1,29 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import Body from './layouts/Body/Body';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import JournalList from './components/JournalList/JournalList';
 import JournalForm from './components/JournalForm/JournalForm';
-
 import './App.css';
 
-const INITIAL_DATA = [
-	// {
-	// 	id: 1,
-	// 	title: 'Подготовка к обновлению курсов',
-	// 	text: 'Горные походы открывают удивительные природные ландшафты',
-	// 	date: new Date()
-	// },
-	// {
-	// 	id: 2,
-	// 	title: 'Поход в годы',
-	// 	text: 'Думал, что очень много времени',
-	// 	date: new Date()
-	// }
-];
 function App() {
-	const [posts, setPosts] = useState(INITIAL_DATA);
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		const data = JSON.parse(localStorage.getItem('data'));
+		if (data) {
+			setPosts(
+				data.map((item) => ({
+					...item,
+					date: new Date(item.date)
+				}))
+			);
+		}
+	} ,[]);
 
 	const addPost = (post) => {
 		setPosts((oldPosts) => [
