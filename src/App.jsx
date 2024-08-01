@@ -22,6 +22,12 @@ function App() {
 		}
 	} ,[]);
 
+	useEffect(() => {
+		if (posts.length) {
+			localStorage.setItem('data', JSON.stringify(posts));
+		}
+	}, [posts]);
+
 	const addPost = (post) => {
 		setPosts((oldPosts) => [
 			...oldPosts,
