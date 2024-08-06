@@ -1,59 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import Button from '../Button/Button';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
+import { formReducer, INITIAL_STATE } from './JournalForm.state';
 
-const INITIAL_STATE = {
-	title: true,
-	text: true,
-	date: true
-};
 function JournalForm({ onSubmit }) {
-	const [formValidState, setFormValidState] = useState(INITIAL_STATE);
+	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
+	const {isValid, isFormReadyToSubmit, values} = formState;
 
 	useEffect(() => {
 		let timerId;
-		if (!formValidState.date || !formValidState.text || !formValidState.title) {
+		if (!isValid.date || !isValid.text || !isValid.title) {
 			timerId = setTimeout(() => {
-				setFormValidState(INITIAL_STATE);
+				dispatchForm({type: 'RESET_VALIDITY'});
 			}, 2000);
 		}
 		return () => {
 			clearTimeout(timerId);
 		};
-	}, [formValidState]);
+	}, [isValid]);
+
+	useEffect(() => {
+		if (isFormReadyToSubmit) {
+			onSubmit(values);
+		}
+	}, [isFormReadyToSubmit]);
 
 	const addJournalItem = (event) => {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const formProps = Object.fromEntries(formData);
-		let isValidForm = true;
-
-		if (!formProps.title?.trim().length) {
-			setFormValidState((state) => ({ ...state, title: false }));
-			isValidForm = false;
-		} else {
-			setFormValidState((state) => ({ ...state, title: true }));
-		}
-
-		if (!formProps.text?.trim().length) {
-			setFormValidState((state) => ({ ...state, text: false }));
-			isValidForm = false;
-		} else {
-			setFormValidState((state) => ({ ...state, text: true }));
-		}
-
-		if (!formProps.date) {
-			setFormValidState((state) => ({ ...state, date: false }));
-			isValidForm = false;
-		} else {
-			setFormValidState((state) => ({ ...state, date: true }));
-		}
-
-		if (!isValidForm) {
-			return;
-		}
-		onSubmit(formProps);
+		dispatchForm({type: 'SUBMIT', payload: formProps});
 	};
 
 	return (
@@ -63,7 +40,7 @@ function JournalForm({ onSubmit }) {
 					type="text"
 					name="title"
 					className={cn(styles.input, styles.title, {
-						[styles.invalid]: !formValidState.title
+						[styles.invalid]: !isValid.title
 					})}
 				/>
 			</div>
@@ -75,7 +52,7 @@ function JournalForm({ onSubmit }) {
 				name="date"
 				id="date"
 				className={cn(styles.input, styles.date, {
-					[styles.invalid]: !formValidState.date
+					[styles.invalid]: !isValid.date
 				})}
 			/>
 			<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">
@@ -92,7 +69,7 @@ function JournalForm({ onSubmit }) {
 				cols="30"
 				rows="10"
 				className={cn(styles.input, styles.text, {
-					[styles.invalid]: !formValidState.text
+					[styles.invalid]: !isValid.text
 				})}
 			></textarea>
 			<div className={styles.innerButton}>
