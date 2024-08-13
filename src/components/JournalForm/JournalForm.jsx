@@ -4,6 +4,7 @@ import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import Input from '../Input/Input';
+import { UserContext } from '../../context/user.context';
 
 function JournalForm({ onSubmit }) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
@@ -57,57 +58,62 @@ function JournalForm({ onSubmit }) {
 	};
 
 	return (
-		<form className={styles['journal-form']} onSubmit={addJournalItem}>
-			<div>
-				<Input
-					onChange={addValue}
-					ref={titleRef}
-					type="text"
-					name="title"
-					value={values.title}
-					isValid={isValid.title}
-					appearence='title'
-				/>
-			</div>
-			<label className={cn(styles.label, styles.labelDate)} htmlFor="date">
-        Дата
-			</label>
-			<Input
-				onChange={addValue}
-				ref={dateRef}
-				type="date"
-				name="date"
-				id="date"
-				value={values.date}
-				isValid={isValid.date}
-				appearence='date'
-			/>
-			<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">
-        Метки
-			</label>
-			<Input
-				onChange={addValue}
-				type="text"
-				name="tag"
-				id="tag"
-				value={values.tag}
-				appearence='tag'
-			/>
-			<textarea
-				onChange={addValue}
-				ref = {textRef}
-				name="text"
-				cols="30"
-				rows="10"
-				value={values.text}
-				className={cn(styles.input, styles.text, {
-					[styles.invalid]: !isValid.text
-				})}
-			></textarea>
-			<div className={styles.innerButton}>
-				<Button text="Сохранить" />
-			</div>
-		</form>
+		<UserContext.Consumer>
+			{(context) => (
+				<form className={styles['journal-form']} onSubmit={addJournalItem}>
+					{context.userId}
+					<div>
+						<Input
+							onChange={addValue}
+							ref={titleRef}
+							type="text"
+							name="title"
+							value={values.title}
+							isValid={isValid.title}
+							appearence='title'
+						/>
+					</div>
+					<label className={cn(styles.label, styles.labelDate)} htmlFor="date">
+						Дата
+					</label>
+					<Input
+						onChange={addValue}
+						ref={dateRef}
+						type="date"
+						name="date"
+						id="date"
+						value={values.date}
+						isValid={isValid.date}
+						appearence='date'
+					/>
+					<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">
+						Метки
+					</label>
+					<Input
+						onChange={addValue}
+						type="text"
+						name="tag"
+						id="tag"
+						value={values.tag}
+						appearence='tag'
+					/>
+					<textarea
+						onChange={addValue}
+						ref = {textRef}
+						name="text"
+						cols="30"
+						rows="10"
+						value={values.text}
+						className={cn(styles.input, styles.text, {
+							[styles.invalid]: !isValid.text
+						})}
+					></textarea>
+					<div className={styles.innerButton}>
+						<Button text="Сохранить" />
+					</div>
+				</form>
+			)}
+		</UserContext.Consumer>
 	);
 }
 
