@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useContext, useEffect, useReducer, useRef } from 'react';
 import Button from '../Button/Button';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
@@ -12,9 +12,10 @@ function JournalForm({ onSubmit }) {
 	const titleRef = useRef();
 	const dateRef = useRef();
 	const textRef = useRef();
+	const { userId } = useContext(UserContext);
 
 	const focusError = (isValid) => {
-		switch(true) {
+		switch (true) {
 		case !isValid.title:
 			titleRef.current.focus();
 			break;
@@ -26,7 +27,7 @@ function JournalForm({ onSubmit }) {
 			break;
 		}
 	};
-	
+
 	useEffect(() => {
 		let timerId;
 		if (!isValid.date || !isValid.text || !isValid.title) {
@@ -49,7 +50,7 @@ function JournalForm({ onSubmit }) {
 
 	const addJournalItem = (event) => {
 		event.preventDefault();
-		dispatchForm({ type: 'SUBMIT'});
+		dispatchForm({ type: 'SUBMIT' });
 	};
 
 	const addValue = (event) => {
@@ -58,62 +59,58 @@ function JournalForm({ onSubmit }) {
 	};
 
 	return (
-		<UserContext.Consumer>
-			{(context) => (
-				<form className={styles['journal-form']} onSubmit={addJournalItem}>
-					{context.userId}
-					<div>
-						<Input
-							onChange={addValue}
-							ref={titleRef}
-							type="text"
-							name="title"
-							value={values.title}
-							isValid={isValid.title}
-							appearence='title'
-						/>
-					</div>
-					<label className={cn(styles.label, styles.labelDate)} htmlFor="date">
-						Дата
-					</label>
-					<Input
-						onChange={addValue}
-						ref={dateRef}
-						type="date"
-						name="date"
-						id="date"
-						value={values.date}
-						isValid={isValid.date}
-						appearence='date'
-					/>
-					<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">
-						Метки
-					</label>
-					<Input
-						onChange={addValue}
-						type="text"
-						name="tag"
-						id="tag"
-						value={values.tag}
-						appearence='tag'
-					/>
-					<textarea
-						onChange={addValue}
-						ref = {textRef}
-						name="text"
-						cols="30"
-						rows="10"
-						value={values.text}
-						className={cn(styles.input, styles.text, {
-							[styles.invalid]: !isValid.text
-						})}
-					></textarea>
-					<div className={styles.innerButton}>
-						<Button text="Сохранить" />
-					</div>
-				</form>
-			)}
-		</UserContext.Consumer>
+		<form className={styles['journal-form']} onSubmit={addJournalItem}>
+			{userId}
+			<div>
+				<Input
+					onChange={addValue}
+					ref={titleRef}
+					type="text"
+					name="title"
+					value={values.title}
+					isValid={isValid.title}
+					appearence="title"
+				/>
+			</div>
+			<label className={cn(styles.label, styles.labelDate)} htmlFor="date">
+        Дата
+			</label>
+			<Input
+				onChange={addValue}
+				ref={dateRef}
+				type="date"
+				name="date"
+				id="date"
+				value={values.date}
+				isValid={isValid.date}
+				appearence="date"
+			/>
+			<label className={cn(styles.label, styles.labelTag)} htmlFor="tag">
+        Метки
+			</label>
+			<Input
+				onChange={addValue}
+				type="text"
+				name="tag"
+				id="tag"
+				value={values.tag}
+				appearence="tag"
+			/>
+			<textarea
+				onChange={addValue}
+				ref={textRef}
+				name="text"
+				cols="30"
+				rows="10"
+				value={values.text}
+				className={cn(styles.input, styles.text, {
+					[styles.invalid]: !isValid.text
+				})}
+			></textarea>
+			<div className={styles.innerButton}>
+				<Button text="Сохранить" />
+			</div>
+		</form>
 	);
 }
 
