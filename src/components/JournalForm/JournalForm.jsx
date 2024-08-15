@@ -111,7 +111,7 @@ function JournalForm({ onSubmit }) {
 				})}
 			></textarea>
 			<div className={styles.innerButton}>
-				<Button text="Сохранить" />
+				<Button>Сохранить</Button>
 			</div>
 		</form>
 	);
