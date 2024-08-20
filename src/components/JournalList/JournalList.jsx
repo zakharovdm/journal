@@ -4,7 +4,7 @@ import CardButton from '../CardButton/CardButton';
 import JournalItem from '../JournalItem/JournalItem';
 import './JournalList.css';
 
-function JournalList({ items }) {
+function JournalList({ items, setSelectedPost }) {
 	const { userId } = useContext(UserContext);
 
 	if (items.length === 0) {
@@ -26,7 +26,12 @@ function JournalList({ items }) {
 				.sort(sortItems)
 				.map((el) => {
 					return (
-						<CardButton key={el.id}>
+						<CardButton
+							key={el.id}
+							onClick={() => {
+								setSelectedPost(el);
+							}}
+						>
 							<JournalItem title={el.title} text={el.text} date={el.date} />
 						</CardButton>
 					);

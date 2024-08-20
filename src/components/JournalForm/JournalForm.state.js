@@ -20,10 +20,10 @@ export function formReducer(state, action) {
 	case 'CLEAR':
 		return { ...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false };
 
-	case 'UPDATE_VALUE': {
+	case 'SET_VALUE': {
 		return {
 			...state, values: {
-				...state.values, [action.payload.name]:action.payload.value
+				...state.values, ...action.payload
 			}
 		};
 	}
