@@ -1,9 +1,10 @@
 import './Button.css';
 
-function Button({children}) {
+function Button({children, className, ...props}) {
+	const cl = `button ${className ? className : ''}`;
 
 	return (
-		<button className='button accent'>{children}</button>
+		<button {...props} className={cl}>{children}</button>
 	);
 }
 

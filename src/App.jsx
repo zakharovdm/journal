@@ -38,8 +38,10 @@ function App() {
 				return i;
 			})]);
 		}
+	};
 
-		
+	const deletePost = (post) => {
+		setItems([...mapItems(items).filter((i) => i.id !== post.id)]);
 	};
 
 	return (
@@ -51,7 +53,7 @@ function App() {
 					<JournalList items={mapItems(items)} setSelectedPost={setSelectedPost} />
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={addPost} selectedPost={selectedPost} />
+					<JournalForm onSubmit={addPost} selectedPost={selectedPost} deletePost={deletePost} />
 				</Body>
 			</div>
 		</UserContextProvider>

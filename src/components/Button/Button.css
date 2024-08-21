@@ -8,12 +8,3 @@
   cursor: pointer;
   transition: background 0.25s;
 }
-
-.accent:hover {
-  background: #1e267e;
-}
-
-.accent {
-  background: #312EB5;
-}
-

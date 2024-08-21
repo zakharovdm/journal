@@ -53,3 +53,21 @@
   display: flex;
   justify-content: flex-start;
 }
+
+.deleteButton {
+  background: none;
+  padding: 0;
+}
+
+.accent:hover {
+  background: #1e267e;
+}
+
+.accent {
+  background: #312EB5;
+}
+
+.titleInner {
+  display: flex;
+  justify-content: space-between;
+}
