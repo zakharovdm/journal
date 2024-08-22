@@ -66,9 +66,14 @@ function JournalForm({ onSubmit, selectedPost, deletePost }) {
 	const onDeletePost = () => {
 		deletePost(selectedPost);
 		dispatchForm({type: 'CLEAR'});
+		dispatchForm({ type: 'SET_VALUE', payload: { userId } });
 	};
 
 	useEffect(() => {
+		if(!selectedPost) {
+			dispatchForm({type: 'CLEAR'});
+			dispatchForm({ type: 'SET_VALUE', payload: { userId } });
+		}
 		dispatchForm({ type: 'SET_VALUE', payload: { ...selectedPost } });
 	}, [selectedPost]);
 
@@ -84,9 +89,9 @@ function JournalForm({ onSubmit, selectedPost, deletePost }) {
 					isValid={isValid.title}
 					appearence="title"
 				/>
-				<Button type="button" className={styles.deleteButton} onClick={onDeletePost}>
+				{selectedPost?.id && <Button type="button" className={styles.deleteButton} onClick={onDeletePost}>
 					<img src="/archive.svg" alt="Кнопка удаления" />
-				</Button>
+				</Button>}
 			</div>
 			<label className={cn(styles.label, styles.labelDate)} htmlFor="date">
         Дата

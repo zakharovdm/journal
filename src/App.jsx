@@ -18,7 +18,7 @@ function mapItems(items) {
 
 function App() {
 	const [items, setItems] = useLocalStorage('data');
-	const [selectedPost, setSelectedPost] = useState({});
+	const [selectedPost, setSelectedPost] = useState(null);
 
 	const addPost = (post) => {
 		if (!post.id) {
@@ -41,7 +41,7 @@ function App() {
 	};
 
 	const deletePost = (post) => {
-		setItems([...mapItems(items).filter((i) => i.id !== post.id)]);
+		setItems([(items).filter((i) => i.id !== post.id)]);
 	};
 
 	return (
@@ -49,7 +49,7 @@ function App() {
 			<div className="app">
 				<LeftPanel>
 					<Header />
-					<JournalAddButton />
+					<JournalAddButton clearForm={() => setSelectedPost(null)} />
 					<JournalList items={mapItems(items)} setSelectedPost={setSelectedPost} />
 				</LeftPanel>
 				<Body>
