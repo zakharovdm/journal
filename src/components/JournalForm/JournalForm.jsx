@@ -64,7 +64,7 @@ function JournalForm({ onSubmit, selectedPost, deletePost }) {
 	};
 
 	const onDeletePost = () => {
-		deletePost(selectedPost);
+		deletePost(selectedPost.id);
 		dispatchForm({type: 'CLEAR'});
 		dispatchForm({ type: 'SET_VALUE', payload: { userId } });
 	};

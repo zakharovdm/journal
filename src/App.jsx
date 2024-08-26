@@ -40,8 +40,8 @@ function App() {
 		}
 	};
 
-	const deletePost = (post) => {
-		setItems([(items).filter((i) => i.id !== post.id)]);
+	const deletePost = (id) => {
+		setItems([...items.filter(i => i.id !== id)]);
 	};
 
 	return (
