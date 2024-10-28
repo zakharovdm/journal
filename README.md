@@ -4,7 +4,7 @@ Journal application for personal notes.
 Without the ability to add new ones.
 The records are stored in localStorage. 
 
-[Journal] https://journal-pi-bice.vercel.app
+![Journal] https://journal-pi-bice.vercel.app
 
 ### Stack:
 
